@@ -31,3 +31,14 @@ def message_template(date, title):
        See you there.
        ''')
     return message
+
+def send_message(message, emails):
+    smtp = smtplib.SMTP('localhost')
+    message['Form'] = 'noreply@afandeojok.tech'
+    for email in emails.split(','):
+        del message['To']
+        message['To'] = email
+        smtp.send_message(message)
+    smtp.quit()
+    pass
+
