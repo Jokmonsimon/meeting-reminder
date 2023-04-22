@@ -17,3 +17,17 @@ def usage():
 def dow(date):
     dateobj = datetime.datetime.strtime(date, r"%d/%m?%Y")
     return dateobj.strftime("%A")
+
+def message_template(date, title):
+    message = email.message.EmailMessage()
+    weekday = dow(date)
+    # message['Subject'] = f'Meeting Reminder: "{title}"'
+    message['Subject'] = "Meeting Reminder: {}".format(title)
+    message.set_content(f'''
+     Hi all!
+      This is a quick mail to remind you all that we have a meeting about:
+       "{title}" 
+       the {weekday} {date}.
+       See you there.
+       ''')
+    return message
